@@ -45,7 +45,7 @@ enum AliasCrossReference {
     private struct AliasFile: Decodable { let aliases: [String: String] }
 
     private static func loadMap() -> Map {
-        guard let url = Bundle.module.url(forResource: "alias-map", withExtension: "json", subdirectory: "OpenNGC"),
+        guard let url = Bundle.module.url(forResource: "alias-map", withExtension: "json", subdirectory: "Catalog"),
               let data = try? Data(contentsOf: url),
               let file = try? JSONDecoder().decode(AliasFile.self, from: data)
         else { return Map(entries: [:]) }

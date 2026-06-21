@@ -28,7 +28,7 @@ public enum OpenNGCCatalog {
     }
 
     private static func parseFile(_ resource: String) -> [CatalogObject] {
-        guard let url = Bundle.module.url(forResource: resource, withExtension: "csv", subdirectory: "OpenNGC"),
+        guard let url = Bundle.module.url(forResource: resource, withExtension: "csv", subdirectory: "Catalog"),
               let text = try? String(contentsOf: url, encoding: .utf8)
         else { return [] }   // missing supplemental files are simply skipped
         return parse(text, source: resource)

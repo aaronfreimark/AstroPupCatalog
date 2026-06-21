@@ -10,7 +10,7 @@ let package = Package(
     targets: [
         .target(
             name: "AstroPupCatalog",
-            resources: [.copy("OpenNGC")]
+            resources: [.copy("Catalog")]
         ),
         .testTarget(
             name: "AstroPupCatalogTests",
