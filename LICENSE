@@ -19,10 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
----
-
-NOTE: This MIT license covers the Swift source code only. The bundled catalog
-data under Sources/AstroPupCatalog/OpenNGC/ is licensed separately — OpenNGC is
-CC-BY-SA-4.0 and the supplemental catalogs are public-domain (CDS/VizieR). See
-ATTRIBUTION.md for details.
