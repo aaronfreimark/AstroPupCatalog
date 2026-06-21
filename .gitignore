@@ -1,0 +1,11 @@
+.build/
+.swiftpm/
+*.xcodeproj
+.DS_Store
+
+# Internal design exchange — kept locally, never published
+PROPOSAL.md
+REVIEW-from-Sky.md
+REPLY-to-Sky.md
+ACK-from-Sky.md
+API-SURFACE.md
