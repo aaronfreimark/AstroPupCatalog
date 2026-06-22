@@ -25,6 +25,17 @@ VizieR. Public-domain scientific catalogues:
 - `abell.csv` — Abell planetary nebulae (V/84) + Abell galaxy clusters (VizieR VII/110A)
 - `vdb.csv` — van den Bergh Reflection Nebulae (vdB), van den Bergh 1966, VizieR VII/21
 
+## Named stars (`Catalog/stars.csv`)
+
+- **IAU Catalog of Star Names (IAU-CSN)** — IAU Division C Working Group on Star
+  Names (WGSN). Source: <https://www.pas.rochester.edu/~emamajek/WGSN/IAU-CSN.txt>
+- License: **Creative Commons Attribution (CC-BY)** — IAU products are free to use
+  in perpetuity, world-wide, provided the source is credited.
+- Schema-converted to the OpenNGC CSV layout (`Type = Star`); RA/Dec from the
+  list's J2000 degrees, with magnitude and HR/HD/HIP/Bayer cross-ids retained.
+  Tooling: `scripts/build-stars.py`.
+- Apps embedding this package should surface this attribution in their Credits.
+
 ## Cross-identification (`OpenNGC/alias-map.json`)
 
 The supplement→canonical alias map was prepared offline by coordinate cross-match

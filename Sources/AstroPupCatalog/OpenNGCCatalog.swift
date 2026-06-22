@@ -24,7 +24,11 @@ public enum OpenNGCCatalog {
     public static func loadBundled() -> [CatalogObject] {
         let canonical = canonicalFiles.flatMap(parseFile)
         let supplemental = supplementalFiles.flatMap(parseFile)
-        return AliasCrossReference.merge(canonical: canonical, supplemental: supplemental)
+        let merged = AliasCrossReference.merge(canonical: canonical, supplemental: supplemental)
+        // Named stars (IAU-CSN) are appended after the merge — they're point sources
+        // with no NGC/supplemental aliases, so they must not participate in the
+        // positional cross-reference (a bright star can sit inside a nebula).
+        return merged + parseFile("stars")
     }
 
     private static func parseFile(_ resource: String) -> [CatalogObject] {
@@ -89,6 +93,7 @@ public enum OpenNGCCatalog {
         case "OCl", "Cl+N": return .openCluster
         case "GCl": return .globularCluster
         case "Neb", "EmN", "RfN", "HII", "SNR", "DrkN": return .nebula
+        case "Star": return .star
         default: return .other
         }
     }

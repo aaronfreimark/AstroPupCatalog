@@ -37,6 +37,29 @@ final class CatalogTests: XCTestCase {
         XCTAssertTrue(m31.vMag != nil || m31.bMag != nil)  // both magnitudes exposed
     }
 
+    func testNamedStarsResolveByProperName() {
+        guard case let .object(id, name, _, _, kind) = resolver.resolve("Albireo") else {
+            return XCTFail("Albireo did not resolve")
+        }
+        XCTAssertEqual(id, "Albireo")
+        XCTAssertEqual(name, "Albireo")
+        XCTAssertEqual(kind, .star)
+        if case let .object(_, _, _, _, k) = resolver.resolve("Vega") { XCTAssertEqual(k, .star) }
+        else { XCTFail("Vega did not resolve") }
+    }
+
+    func testNamedStarsLoadedAsPointSources() {
+        let stars = resolver.catalogObjects.filter { $0.kind == .star }
+        XCTAssertGreaterThan(stars.count, 400)                       // ~451 IAU named stars
+        XCTAssertTrue(stars.allSatisfy { $0.rawType == "Star" })
+        XCTAssertTrue(stars.allSatisfy { $0.majorAxis == nil })      // point sources, no extent
+    }
+
+    func testStarSearchByNameAndDesignation() {
+        XCTAssertTrue(resolver.search("Vega").contains { $0.id == "Vega" })
+        XCTAssertTrue(resolver.search("HD 172167").contains { $0.id == "Vega" })  // identifier search
+    }
+
     func testAliasFolding_NorthAmerica() {
         // Sh2-117 and LBN 373 are SIMBAD-vetted duplicates of NGC 7000.
         guard case let .object(a, _, _, _, _) = resolver.resolve("Sh2-117"),

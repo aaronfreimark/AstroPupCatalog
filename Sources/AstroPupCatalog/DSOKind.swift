@@ -5,7 +5,7 @@ import Foundation
 /// finer categories keep the raw OpenNGC type code on `CatalogObject.rawType`
 /// and map it themselves.
 public enum DSOKind: String, Codable, Sendable, CaseIterable {
-    case galaxy, galaxyGroup, nebula, planetaryNebula, openCluster, globularCluster, other
+    case galaxy, galaxyGroup, nebula, planetaryNebula, openCluster, globularCluster, star, other
 
     public var displayName: String {
         switch self {
@@ -15,6 +15,7 @@ public enum DSOKind: String, Codable, Sendable, CaseIterable {
         case .planetaryNebula: "Planetary nebula"
         case .openCluster: "Open cluster"
         case .globularCluster: "Globular cluster"
+        case .star: "Star"
         case .other: "Other"
         }
     }
