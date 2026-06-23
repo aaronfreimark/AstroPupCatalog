@@ -1,0 +1,30 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Galaxy" : {
+      "comment" : "DSO kind"
+    },
+    "Galaxy group" : {
+      "comment" : "DSO kind: pair/group/cluster of galaxies"
+    },
+    "Globular cluster" : {
+      "comment" : "DSO kind"
+    },
+    "Nebula" : {
+      "comment" : "DSO kind"
+    },
+    "Open cluster" : {
+      "comment" : "DSO kind"
+    },
+    "Other" : {
+      "comment" : "DSO kind"
+    },
+    "Planetary nebula" : {
+      "comment" : "DSO kind"
+    },
+    "Star" : {
+      "comment" : "DSO kind"
+    }
+  },
+  "version" : "1.0"
+}

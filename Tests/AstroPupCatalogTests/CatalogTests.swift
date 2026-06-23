@@ -37,6 +37,14 @@ final class CatalogTests: XCTestCase {
         XCTAssertTrue(m31.vMag != nil || m31.bMag != nil)  // both magnitudes exposed
     }
 
+    func testKindDisplayNamesResolveFromTheStringCatalog() {
+        // The localized labels are the family's single source of truth (no drift).
+        XCTAssertEqual(DSOKind.galaxy.displayName, "Galaxy")
+        XCTAssertEqual(DSOKind.galaxyGroup.displayName, "Galaxy group")
+        XCTAssertEqual(DSOKind.star.displayName, "Star")
+        XCTAssertEqual(DSOKind.planetaryNebula.displayName, "Planetary nebula")
+    }
+
     func testNamedStarsResolveByProperName() {
         guard case let .object(id, name, _, _, kind) = resolver.resolve("Albireo") else {
             return XCTFail("Albireo did not resolve")

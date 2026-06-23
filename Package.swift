@@ -3,6 +3,7 @@ import PackageDescription
 
 let package = Package(
     name: "AstroPupCatalog",
+    defaultLocalization: "en",
     platforms: [.macOS(.v13), .iOS(.v16)],
     products: [
         .library(name: "AstroPupCatalog", targets: ["AstroPupCatalog"]),
@@ -10,7 +11,7 @@ let package = Package(
     targets: [
         .target(
             name: "AstroPupCatalog",
-            resources: [.copy("Catalog")]
+            resources: [.copy("Catalog"), .process("Localizable.xcstrings")]
         ),
         .testTarget(
             name: "AstroPupCatalogTests",
