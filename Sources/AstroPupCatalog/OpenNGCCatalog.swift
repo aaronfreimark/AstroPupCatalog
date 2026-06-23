@@ -92,7 +92,8 @@ public enum OpenNGCCatalog {
         case "PN": return .planetaryNebula
         case "OCl", "Cl+N": return .openCluster
         case "GCl": return .globularCluster
-        case "Neb", "EmN", "RfN", "HII", "SNR", "DrkN": return .nebula
+        case "Neb", "EmN", "RfN", "HII", "SNR": return .brightNebula   // emission/reflection/SNR
+        case "DrkN": return .darkNebula                                // absorption (LDN)
         case "Star": return .star
         default: return .other
         }

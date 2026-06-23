@@ -41,8 +41,16 @@ final class CatalogTests: XCTestCase {
         // The localized labels are the family's single source of truth (no drift).
         XCTAssertEqual(DSOKind.galaxy.displayName, "Galaxy")
         XCTAssertEqual(DSOKind.galaxyGroup.displayName, "Galaxy group")
+        XCTAssertEqual(DSOKind.brightNebula.displayName, "Bright nebula")
+        XCTAssertEqual(DSOKind.darkNebula.displayName, "Dark nebula")
         XCTAssertEqual(DSOKind.star.displayName, "Star")
-        XCTAssertEqual(DSOKind.planetaryNebula.displayName, "Planetary nebula")
+    }
+
+    func testNebulaeSplitIntoBrightAndDark() {
+        // Matches Sky: Sharpless/LBN/vdB = bright, LDN = dark.
+        XCTAssertEqual(resolver.object(id: "Sh2-94")?.kind, .brightNebula)   // HII
+        XCTAssertEqual(resolver.object(id: "LBN 148")?.kind, .brightNebula)  // Neb
+        XCTAssertEqual(resolver.object(id: "LDN 1730")?.kind, .darkNebula)   // DrkN
     }
 
     func testNamedStarsResolveByProperName() {

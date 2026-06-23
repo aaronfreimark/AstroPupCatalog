@@ -7,7 +7,8 @@ public extension DSOKind {
     var chartColor: Color {
         switch self {
         case .galaxy, .galaxyGroup:          Color(red: 0.90, green: 0.70, blue: 0.50)
-        case .nebula:                        Color(red: 1.00, green: 0.50, blue: 0.40)
+        case .brightNebula:                  Color(red: 1.00, green: 0.50, blue: 0.40)
+        case .darkNebula:                    Color(red: 0.62, green: 0.58, blue: 0.70)
         case .planetaryNebula:               Color(red: 0.50, green: 1.00, blue: 0.70)
         case .openCluster, .globularCluster: Color(red: 1.00, green: 0.95, blue: 0.50)
         case .star:                          Color(red: 1.00, green: 0.93, blue: 0.66)
@@ -28,9 +29,10 @@ public struct KindSymbol: View {
         self.kind = kind; self.size = size
     }
 
-    private var galaxyColor:    Color { Color(red: 0.90, green: 0.70, blue: 0.50) }
-    private var nebulaColor:    Color { Color(red: 1.00, green: 0.50, blue: 0.40) }
-    private var planetaryColor: Color { Color(red: 0.50, green: 1.00, blue: 0.70) }
+    private var galaxyColor:      Color { Color(red: 0.90, green: 0.70, blue: 0.50) }
+    private var brightNebulaColor: Color { Color(red: 1.00, green: 0.50, blue: 0.40) }
+    private var darkNebulaColor:  Color { Color(red: 0.62, green: 0.58, blue: 0.70) }
+    private var planetaryColor:   Color { Color(red: 0.50, green: 1.00, blue: 0.70) }
     private var clusterColor:   Color { Color(red: 1.00, green: 0.95, blue: 0.50) }
     private var starColor:      Color { Color(red: 1.00, green: 0.93, blue: 0.66) }
 
@@ -47,8 +49,13 @@ public struct KindSymbol: View {
                     Ellipse().stroke(galaxyColor, lineWidth: 1)
                         .frame(width: size * 0.68, height: size * 0.42).offset(x: size * 0.11, y: size * 0.08)
                 }
-            case .nebula:
-                Rectangle().stroke(nebulaColor, lineWidth: 1)
+            case .brightNebula:
+                // Solid square — emission / reflection / SNR, the prime targets.
+                Rectangle().stroke(brightNebulaColor, lineWidth: 1)
+                    .frame(width: size * 0.85, height: size * 0.85)
+            case .darkNebula:
+                // Dashed, muted outline — absorption nebulae read as a faint silhouette.
+                Rectangle().stroke(darkNebulaColor, style: StrokeStyle(lineWidth: 1, dash: [1.5, 1.5]))
                     .frame(width: size * 0.85, height: size * 0.85)
             case .planetaryNebula:
                 Circle().stroke(planetaryColor, lineWidth: 1)

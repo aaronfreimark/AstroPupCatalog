@@ -4,13 +4,16 @@
     "Galaxy" : {
       "comment" : "DSO kind"
     },
+    "Bright nebula" : {
+      "comment" : "DSO kind: emission/reflection/SNR"
+    },
+    "Dark nebula" : {
+      "comment" : "DSO kind: absorption nebula"
+    },
     "Galaxy group" : {
       "comment" : "DSO kind: pair/group/cluster of galaxies"
     },
     "Globular cluster" : {
-      "comment" : "DSO kind"
-    },
-    "Nebula" : {
       "comment" : "DSO kind"
     },
     "Open cluster" : {
