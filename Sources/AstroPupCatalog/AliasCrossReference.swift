@@ -35,10 +35,26 @@ enum AliasCrossReference {
                let idx = byDesignation[target] {
                 result[idx].identifiers.append(s.id)   // absorb its designation
             } else {
-                leftovers.append(s)                    // genuinely new object
+                leftovers.append(s)                    // no canonical anchor (yet)
             }
         }
-        result.append(contentsOf: leftovers)
+
+        // Supplemental↔supplemental: two supplementals that are the same object with
+        // no NGC counterpart (e.g. LBN 148 = Sh2-94) — fold each onto the cluster's
+        // primary supplemental (also a leftover), so it isn't emitted twice.
+        var leftoverIdx: [String: Int] = [:]
+        for (i, s) in leftovers.enumerated() {
+            let n = Designation.normalize(s.id)
+            if leftoverIdx[n] == nil { leftoverIdx[n] = i }
+        }
+        var foldedOut = Set<Int>()
+        for (i, s) in leftovers.enumerated() {
+            guard let target = map.entries[Designation.normalize(s.id)],
+                  let pidx = leftoverIdx[target], pidx != i else { continue }
+            leftovers[pidx].identifiers.append(s.id)
+            foldedOut.insert(i)
+        }
+        for (i, s) in leftovers.enumerated() where !foldedOut.contains(i) { result.append(s) }
         return result
     }
 

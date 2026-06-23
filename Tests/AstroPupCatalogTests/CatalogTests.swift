@@ -46,10 +46,30 @@ final class CatalogTests: XCTestCase {
         XCTAssertEqual(DSOKind.star.displayName, "Star")
     }
 
+    func testSupplementalDedupFoldsDuplicatesOntoAPrimary() {
+        // LBN 148 = Sh2-94 — same HII region, no NGC counterpart. One object now.
+        XCTAssertNil(resolver.object(id: "LBN 148"))                                   // folded away
+        XCTAssertTrue(resolver.object(id: "Sh2-94")?.identifiers.contains("LBN 148") ?? false)
+        guard case let .object(id, _, _, _, _) = resolver.resolve("LBN 148") else {
+            return XCTFail("LBN 148 should resolve")
+        }
+        XCTAssertEqual(id, "Sh2-94")                                                   // resolves to the primary
+    }
+
+    func testBrightAndDarkCoincidenceIsNotMerged() {
+        // LBN 1116 (bright) and LDN 1730 (dark) coincide on the sky but are different
+        // kinds — the dedup is same-class only, so they stay two objects.
+        guard case let .object(bid, _, _, _, _) = resolver.resolve("LBN 1116"),
+              case let .object(did, _, _, _, _) = resolver.resolve("LDN 1730") else {
+            return XCTFail("both should resolve")
+        }
+        XCTAssertNotEqual(bid, did)
+        XCTAssertEqual(resolver.object(id: "LDN 1730")?.kind, .darkNebula)
+    }
+
     func testNebulaeSplitIntoBrightAndDark() {
         // Matches Sky: Sharpless/LBN/vdB = bright, LDN = dark.
         XCTAssertEqual(resolver.object(id: "Sh2-94")?.kind, .brightNebula)   // HII
-        XCTAssertEqual(resolver.object(id: "LBN 148")?.kind, .brightNebula)  // Neb
         XCTAssertEqual(resolver.object(id: "LDN 1730")?.kind, .darkNebula)   // DrkN
     }
 
